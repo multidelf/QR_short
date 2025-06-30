@@ -15,7 +15,7 @@
         const script = document.createElement('script');
 
         // 我們要測試的路徑
-        script.src = 'js/qrcode.min.js'; 
+        script.src = 'JS/qrcode.min.js'; 
         
         // 成功載入時的處理
         script.onload = function() {
@@ -36,9 +36,9 @@
 
         // 載入失敗時的處理
         script.onerror = function() {
-            console.error('致命錯誤：無法載入 js/qrcode.min.js 檔案 (Fatal Error: Could not load js/qrcode.min.js file).');
+            console.error('致命錯誤：無法載入 JS/qrcode.min.js 檔案 (Fatal Error: Could not load JS/qrcode.min.js file).');
             console.error('請再次檢查您的資料夾與檔案名稱 (大小寫也需要完全一致)。');
-            statusElement.textContent = '狀態：致命錯誤！找不到 js/qrcode.min.js。請檢查路徑與檔名。';
+            statusElement.textContent = '狀態：致命錯誤！找不到 JS/qrcode.min.js。請檢查路徑與檔名。';
             statusElement.style.color = 'red';
         };
 
