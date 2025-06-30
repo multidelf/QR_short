@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code 批次生成工具 V1.3 (修正版)</title>
+    <title>QR Code 批次生成工具 V1.4 (穩定版)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
@@ -15,6 +15,15 @@
         }
         input[type="file"] {
             cursor: pointer;
+        }
+        /* 增加禁用時的樣式 */
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        button:disabled:hover {
+            background-color: #4f46e5; /* 禁用時 hover 效果不變 */
         }
     </style>
 </head>
@@ -77,8 +86,8 @@
         </div>
         
         <div class="text-center mb-8">
-            <button id="generateButton" class="px-8 py-4 bg-indigo-600 text-white text-xl font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
-                <span id="buttonText">開始生成 QR Code</span>
+            <button id="generateButton" disabled class="px-8 py-4 bg-indigo-600 text-white text-xl font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                <span id="buttonText">載入函式庫中...</span>
                 <span id="loadingSpinner" class="hidden items-center">
                     <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     處理中...
@@ -101,7 +110,7 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.5.3/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode/1.5.3/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     
@@ -127,7 +136,7 @@
 
         // 應用程式狀態
         let qrCodeLogoDataUrl = null;
-        let generatedResults = []; // 儲存所有生成結果
+        let generatedResults = [];
 
         // --- 事件監聽器 ---
         fileUploadInput.addEventListener('change', (event) => {
@@ -172,7 +181,6 @@
             qrCodeGrid.innerHTML = '';
             generatedResults = [];
 
-            // 檢查函式庫是否已載入
             if (typeof window.QRCode === 'undefined' || typeof window.JSZip === 'undefined' || typeof window.saveAs === 'undefined') {
                 errorMessageDiv.textContent = '必要的函式庫載入失敗，請檢查您的網路連線並重新整理頁面。';
                 errorMessageDiv.classList.remove('hidden');
@@ -211,12 +219,15 @@
                             },
                             errorCorrectionLevel: errorCorrectionLevel
                         }, function (error) {
-                            if (error) reject(error);
-                            else resolve();
+                            if (error) {
+                                console.error('QR Code generation error:', error);
+                                reject(error);
+                            } else {
+                                resolve();
+                            }
                         });
                     });
 
-                    // 繪製 Logo
                     if (qrCodeLogoDataUrl) {
                         const ctx = canvas.getContext('2d');
                         const img = new Image();
@@ -241,7 +252,7 @@
                         dataUrl: canvas.toDataURL('image/png')
                     });
                 } catch (error) {
-                    console.error('生成 QR Code 失敗:', error);
+                    console.error('生成 QR Code 失敗 (catch block):', error);
                     generatedResults.push({
                         id: `qr-${i}`,
                         original: content,
@@ -263,24 +274,22 @@
                 const div = document.createElement('div');
                 div.className = 'bg-white p-4 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center';
                 if (item.error) {
-                    div.innerHTML = `
-                        <p class="text-sm text-gray-600 break-all mb-2">${item.original}</p>
-                        <p class="text-red-500 font-semibold">${item.error}</p>`;
+                    div.innerHTML = `<p class="text-sm text-gray-600 break-all mb-2">${item.original}</p><p class="text-red-500 font-semibold">${item.error}</p>`;
                 } else {
                     const safeFilename = item.original.replace(/[^a-z0-9]/gi, '_').substring(0, 30);
-                    div.innerHTML = `
-                        <img src="${item.dataUrl}" alt="QR Code for ${item.original}" class="w-40 h-40 mb-3 border border-gray-200 rounded-lg">
-                        <p class="text-xs text-gray-500 break-all mb-3">${item.original}</p>
-                        <a href="${item.dataUrl}" download="qrcode_${safeFilename}.png" class="mt-auto px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out">
-                            下載
-                        </a>
-                    `;
+                    div.innerHTML = `<img src="${item.dataUrl}" alt="QR Code for ${item.original}" class="w-40 h-40 mb-3 border border-gray-200 rounded-lg"><p class="text-xs text-gray-500 break-all mb-3">${item.original}</p><a href="${item.dataUrl}" download="qrcode_${safeFilename}.png" class="mt-auto px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out">下載</a>`;
                 }
                 qrCodeGrid.appendChild(div);
             });
         }
 
         async function downloadQrCodesAsZip() {
+            if (typeof window.JSZip === 'undefined' || typeof window.saveAs === 'undefined') {
+                errorMessageDiv.textContent = '打包函式庫載入失敗，請檢查您的網路連線並重新整理頁面。';
+                errorMessageDiv.classList.remove('hidden');
+                return;
+            }
+
             const zip = new window.JSZip();
             const qrCodeResults = generatedResults.filter(r => r.dataUrl);
 
@@ -321,6 +330,18 @@
                 generateButton.disabled = false;
             }
         }
+        
+        // 變更 #2: 增加事件監聽器, 在所有資源載入後啟用按鈕
+        window.addEventListener('load', () => {
+            const generateButton = document.getElementById('generateButton');
+            const buttonTextSpan = document.getElementById('buttonText');
+            if (generateButton) {
+                generateButton.disabled = false;
+                // 移除 TailwindCSS 的禁用樣式
+                generateButton.classList.remove('opacity-50', 'cursor-not-allowed');
+                buttonTextSpan.textContent = '開始生成 QR Code';
+            }
+        });
     </script>
 </body>
 </html>
