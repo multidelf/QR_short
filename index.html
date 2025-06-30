@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QR Code / 短網址批次生成工具</title>
-    <!-- Tailwind CSS CDN -->
+    <title>QR Code 批次生成工具</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts - Inter -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body {
@@ -25,50 +23,15 @@
 
     <div class="max-w-4xl mx-auto bg-white p-6 sm:p-8 rounded-2xl shadow-xl border border-gray-200">
         <h1 class="text-3xl sm:text-4xl font-extrabold text-center text-indigo-700 mb-8">
-            QR Code / 短網址批次生成工具
+            QR Code 批次生成工具
         </h1>
 
-        <!-- 選擇生成類型 -->
-        <div class="mb-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
-            <label class="flex items-center cursor-pointer p-3 bg-indigo-50 rounded-xl shadow-sm hover:bg-indigo-100 transition duration-200 ease-in-out">
-                <input type="radio" name="generationType" value="qrcode" checked class="form-radio h-5 w-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
-                <span class="ml-3 text-lg font-medium text-indigo-700 flex items-center">
-                    <!-- QR Code Icon (Lucide-react equivalent SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
-                        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
-                        <path d="M3 9h18"></path>
-                        <path d="M3 15h18"></path>
-                        <path d="M9 3v18"></path>
-                        <path d="M15 3v18"></path>
-                    </svg>
-                    生成 QR Code
-                </span>
-            </label>
-            <label class="flex items-center cursor-pointer p-3 bg-purple-50 rounded-xl shadow-sm hover:bg-purple-100 transition duration-200 ease-in-out">
-                <input type="radio" name="generationType" value="shorturl" class="form-radio h-5 w-5 text-purple-600 border-gray-300 focus:ring-purple-500">
-                <span class="ml-3 text-lg font-medium text-purple-700 flex items-center">
-                    <!-- Link Icon (Lucide-react equivalent SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
-                        <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L9.54 5.46c-.46.46-.9.9-1.32 1.32"></path>
-                        <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71c.46-.46.9-.9 1.32-1.32"></path>
-                    </svg>
-                    生成短網址
-                </span>
-            </label>
-        </div>
-
-        <!-- 輸入內容區 -->
         <div class="mb-8 bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner">
             <h2 class="text-2xl font-semibold text-gray-700 mb-4">輸入內容</h2>
             <textarea id="inputText" class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-400 focus:border-transparent transition duration-200 ease-in-out resize-y min-h-[150px] text-base" placeholder="請輸入要轉換的連結或文字，每行一個項目。"></textarea>
             <div class="mt-4 flex flex-col sm:flex-row items-center space-y-3 sm:space-y-0 sm:space-x-4">
                 <label for="fileUpload" class="w-full sm:w-auto flex items-center justify-center px-6 py-3 border border-indigo-400 rounded-lg shadow-sm text-lg font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 cursor-pointer transition duration-200 ease-in-out">
-                    <!-- Upload Icon (Lucide-react equivalent SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="17 8 12 3 7 8"></polyline>
-                        <line x1="12" x2="12" y1="3" y2="15"></line>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" x2="12" y1="3" y2="15"></line></svg>
                     上傳 .txt 或 .csv 檔案
                     <input type="file" id="fileUpload" accept=".txt,.csv" class="hidden">
                 </label>
@@ -76,7 +39,6 @@
             </div>
         </div>
 
-        <!-- QR Code 設定區 -->
         <div id="qrCodeSettings" class="mb-8 bg-blue-50 p-6 rounded-xl border border-blue-200 shadow-inner">
             <h2 class="text-2xl font-semibold text-blue-700 mb-4">QR Code 設定</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -105,12 +67,7 @@
                     <label for="logoUpload" class="block text-gray-700 text-sm font-bold mb-2">Logo 圖片 (選填):</label>
                     <input type="file" id="logoUpload" accept="image/*" class="w-full p-3 border border-gray-300 rounded-lg file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                     <div id="logoPreviewContainer" class="mt-4 hidden items-center space-x-4">
-                        <!-- Image Icon (Lucide-react equivalent SVG) -->
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-blue-500">
-                            <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
-                            <circle cx="9" cy="9" r="2"></circle>
-                            <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-blue-500"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><circle cx="9" cy="9" r="2"></circle><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path></svg>
                         <span class="text-gray-600">Logo 已上傳。</span>
                         <label for="logoSizeRatio" class="block text-gray-700 text-sm font-bold">Logo 尺寸比例:</label>
                         <input type="range" id="logoSizeRatio" min="0.1" max="0.4" step="0.05" value="0.2" class="w-32 h-2 bg-blue-200 rounded-lg appearance-none cursor-pointer">
@@ -119,82 +76,39 @@
                 </div>
             </div>
         </div>
-
-        <!-- 短網址設定區 -->
-        <div id="shortUrlSettings" class="mb-8 bg-purple-50 p-6 rounded-xl border border-purple-200 shadow-inner hidden">
-            <h2 class="text-2xl font-semibold text-purple-700 mb-4">短網址設定</h2>
-            <div class="mb-4">
-                <label for="customAlias" class="block text-gray-700 text-sm font-bold mb-2">自訂路徑 (選填):</label>
-                <input type="text" id="customAlias" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-400" placeholder="例如：my-custom-path">
-                <p class="text-sm text-gray-500 mt-2">
-                    (此功能目前為模擬，實際應用需要後端支援自訂路徑和檢查是否重複)
-                </p>
-            </div>
-        </div>
-
-        <!-- 生成按鈕 -->
+        
         <div class="text-center mb-8">
-            <button id="generateButton" class="px-8 py-4 bg-gradient-to-r from-indigo-500 to-purple-600 text-white text-xl font-bold rounded-full shadow-lg hover:from-indigo-600 hover:to-purple-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
-                <span id="buttonText">開始生成</span>
-                <span id="loadingSpinner" class="hidden flex items-center">
-                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                    </svg>
+            <button id="generateButton" class="px-8 py-4 bg-indigo-600 text-white text-xl font-bold rounded-full shadow-lg hover:bg-indigo-700 transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-indigo-300">
+                <span id="buttonText">開始生成 QR Code</span>
+                <span id="loadingSpinner" class="hidden items-center">
+                    <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
                     處理中...
                 </span>
             </button>
             <p id="errorMessage" class="text-red-600 mt-4 text-center font-medium hidden"></p>
             <p id="loadingLibrariesMessage" class="text-orange-600 mt-2 text-center text-sm hidden">
-                正在載入必要的函式庫 (QR Code, ZIP, FileSaver)...
+                正在載入所需函式庫...
             </p>
         </div>
 
-        <!-- 結果顯示區 -->
         <div id="resultsContainer" class="bg-gray-50 p-6 rounded-xl border border-gray-200 shadow-inner mt-8 hidden">
             <h2 class="text-2xl font-semibold text-gray-700 mb-4">生成結果</h2>
 
-            <!-- QR Code 結果區 -->
-            <div id="qrCodeResults" class="hidden">
+            <div id="qrCodeResults">
                 <button id="downloadQrCodesZip" class="mb-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out flex items-center justify-center">
-                    <!-- Download Icon (Lucide-react equivalent SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" x2="12" y1="15" y2="3"></line>
-                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" x2="12" y1="15" y2="3"></line></svg>
                     下載所有 QR Code (ZIP)
                 </button>
                 <div id="qrCodeGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- QR Code images will be inserted here -->
-                </div>
-            </div>
-
-            <!-- 短網址結果區 -->
-            <div id="shortUrlResults" class="hidden">
-                <button id="downloadShortUrlsCsv" class="mb-4 px-6 py-3 bg-green-500 text-white font-bold rounded-lg shadow-md hover:bg-green-600 transition duration-200 ease-in-out flex items-center justify-center">
-                    <!-- Download Icon (Lucide-react equivalent SVG) -->
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-5 w-5">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" x2="12" y1="15" y2="3"></line>
-                    </svg>
-                    下載短網址列表 (CSV)
-                </button>
-                <div id="shortUrlList" class="space-y-4">
-                    <!-- Short URL list will be inserted here -->
-                </div>
+                    </div>
             </div>
         </div>
     </div>
 
     <script>
         // DOM 元素引用
-        const generationTypeRadios = document.querySelectorAll('input[name="generationType"]');
         const inputTextarea = document.getElementById('inputText');
         const fileUploadInput = document.getElementById('fileUpload');
-        const qrCodeSettingsDiv = document.getElementById('qrCodeSettings');
-        const shortUrlSettingsDiv = document.getElementById('shortUrlSettings');
         const qrSizeInput = document.getElementById('qrSize');
         const qrFgColorInput = document.getElementById('qrFgColor');
         const qrBgColorInput = document.getElementById('qrBgColor');
@@ -203,22 +117,16 @@
         const logoPreviewContainer = document.getElementById('logoPreviewContainer');
         const logoSizeRatioInput = document.getElementById('logoSizeRatio');
         const logoSizeRatioValueSpan = document.getElementById('logoSizeRatioValue');
-        const customAliasInput = document.getElementById('customAlias');
         const generateButton = document.getElementById('generateButton');
         const buttonTextSpan = document.getElementById('buttonText');
         const loadingSpinner = document.getElementById('loadingSpinner');
         const errorMessageDiv = document.getElementById('errorMessage');
         const loadingLibrariesMessage = document.getElementById('loadingLibrariesMessage');
         const resultsContainer = document.getElementById('resultsContainer');
-        const qrCodeResultsDiv = document.getElementById('qrCodeResults');
-        const shortUrlResultsDiv = document.getElementById('shortUrlResults');
         const qrCodeGrid = document.getElementById('qrCodeGrid');
-        const shortUrlList = document.getElementById('shortUrlList');
         const downloadQrCodesZipButton = document.getElementById('downloadQrCodesZip');
-        const downloadShortUrlsCsvButton = document.getElementById('downloadShortUrlsCsv');
 
         // 應用程式狀態
-        let currentGenerationType = 'qrcode';
         let qrCodeLogoDataUrl = null;
         let isLibrariesLoaded = false;
         let generatedResults = []; // 儲存所有生成結果
@@ -245,49 +153,26 @@
         }
 
         let loadedCount = 0;
-        const totalLibraries = 3; // qrcode.js, jszip.min.js, FileSaver.min.js
+        const totalLibraries = 3; // qrcode, jszip, FileSaver
 
         function checkAllLibrariesLoaded() {
             loadedCount++;
             if (loadedCount === totalLibraries) {
                 isLibrariesLoaded = true;
                 loadingLibrariesMessage.classList.add('hidden');
-                generateButton.disabled = false; // 啟用按鈕
+                generateButton.disabled = false;
             }
         }
 
-        // 在 DOMContentLoaded 時載入函式庫
         document.addEventListener('DOMContentLoaded', () => {
             loadingLibrariesMessage.classList.remove('hidden');
-            generateButton.disabled = true; // 預設禁用按鈕
-            loadScript('qrcode-js', 'https://cdnjs.cloudflare.com/ajax/libs/qrcode.js/1.0.0/qrcode.min.js', checkAllLibrariesLoaded);
+            generateButton.disabled = true;
+            loadScript('qrcode-js', 'https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js', checkAllLibrariesLoaded);
             loadScript('jszip-js', 'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js', checkAllLibrariesLoaded);
             loadScript('filesaver-js', 'https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js', checkAllLibrariesLoaded);
         });
 
         // --- 事件監聽器 ---
-
-        // 切換生成類型
-        generationTypeRadios.forEach(radio => {
-            radio.addEventListener('change', (event) => {
-                currentGenerationType = event.target.value;
-                if (currentGenerationType === 'qrcode') {
-                    qrCodeSettingsDiv.classList.remove('hidden');
-                    shortUrlSettingsDiv.classList.add('hidden');
-                } else {
-                    qrCodeSettingsDiv.classList.add('hidden');
-                    shortUrlSettingsDiv.classList.remove('hidden');
-                }
-                // 清空結果和錯誤訊息
-                errorMessageDiv.classList.add('hidden');
-                resultsContainer.classList.add('hidden');
-                qrCodeGrid.innerHTML = '';
-                shortUrlList.innerHTML = '';
-                generatedResults = [];
-            });
-        });
-
-        // 處理檔案上傳
         fileUploadInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -299,7 +184,6 @@
             }
         });
 
-        // 處理 Logo 圖片上傳
         logoUploadInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
@@ -307,7 +191,7 @@
                 reader.onload = (e) => {
                     qrCodeLogoDataUrl = e.target.result;
                     logoPreviewContainer.classList.remove('hidden');
-                    logoPreviewContainer.classList.add('flex'); // 確保 flex 顯示
+                    logoPreviewContainer.classList.add('flex');
                 };
                 reader.readAsDataURL(file);
             } else {
@@ -317,24 +201,18 @@
             }
         });
 
-        // 調整 Logo 尺寸比例顯示
         logoSizeRatioInput.addEventListener('input', (event) => {
             logoSizeRatioValueSpan.textContent = `${(parseFloat(event.target.value) * 100).toFixed(0)}%`;
         });
 
-        // 生成按鈕點擊
         generateButton.addEventListener('click', handleGenerate);
         downloadQrCodesZipButton.addEventListener('click', downloadQrCodesAsZip);
-        downloadShortUrlsCsvButton.addEventListener('click', downloadShortUrlsAsCsv);
-
 
         // --- 核心生成邏輯 ---
-
         async function handleGenerate() {
             errorMessageDiv.classList.add('hidden');
             resultsContainer.classList.add('hidden');
             qrCodeGrid.innerHTML = '';
-            shortUrlList.innerHTML = '';
             generatedResults = [];
 
             if (!isLibrariesLoaded) {
@@ -344,8 +222,8 @@
             }
 
             const lines = inputTextarea.value.split('\n')
-                                        .map(line => line.trim())
-                                        .filter(line => line !== '');
+                                            .map(line => line.trim())
+                                            .filter(line => line !== '');
 
             if (lines.length === 0) {
                 errorMessageDiv.textContent = '請輸入要生成的內容或上傳檔案。';
@@ -355,90 +233,69 @@
 
             setLoadingState(true);
 
-            if (currentGenerationType === 'qrcode') {
-                if (!window.QRCode) {
-                    errorMessageDiv.textContent = 'QR Code 函式庫未載入。請稍後再試。';
-                    errorMessageDiv.classList.remove('hidden');
-                    setLoadingState(false);
-                    return;
-                }
-                for (let i = 0; i < lines.length; i++) {
-                    const content = lines[i];
-                    try {
-                        const canvas = document.createElement('canvas');
-                        const qrSize = parseInt(qrSizeInput.value) || 256;
-                        const fgColor = qrFgColorInput.value;
-                        const bgColor = qrBgColorInput.value;
-                        const errorCorrectionLevel = qrErrorCorrectionSelect.value;
-                        const logoSizeRatio = parseFloat(logoSizeRatioInput.value);
+            if (!window.QRCode) {
+                errorMessageDiv.textContent = 'QR Code 函式庫未載入。請稍後再試。';
+                errorMessageDiv.classList.remove('hidden');
+                setLoadingState(false);
+                return;
+            }
+            
+            for (let i = 0; i < lines.length; i++) {
+                const content = lines[i];
+                try {
+                    const canvas = document.createElement('canvas');
+                    const qrSize = parseInt(qrSizeInput.value) || 256;
+                    const fgColor = qrFgColorInput.value;
+                    const bgColor = qrBgColorInput.value;
+                    const errorCorrectionLevel = qrErrorCorrectionSelect.value;
+                    const logoSizeRatio = parseFloat(logoSizeRatioInput.value);
 
+                    await new Promise((resolve, reject) => {
+                        window.QRCode.toCanvas(canvas, content, {
+                            width: qrSize,
+                            margin: 2,
+                            color: {
+                                dark: fgColor,
+                                light: bgColor
+                            },
+                            errorCorrectionLevel: errorCorrectionLevel
+                        }, function (error) {
+                            if (error) reject(error);
+                            else resolve();
+                        });
+                    });
+
+                    // 繪製 Logo
+                    if (qrCodeLogoDataUrl) {
+                        const ctx = canvas.getContext('2d');
+                        const img = new Image();
+                        img.src = qrCodeLogoDataUrl;
                         await new Promise((resolve, reject) => {
-                            window.QRCode.toCanvas(canvas, content, {
-                                width: qrSize,
-                                color: {
-                                    dark: fgColor,
-                                    light: bgColor
-                                },
-                                errorCorrectionLevel: errorCorrectionLevel
-                            }, function (error) {
-                                if (error) reject(error);
+                            img.onload = () => {
+                                const logoSize = qrSize * logoSizeRatio;
+                                const x = (qrSize - logoSize) / 2;
+                                const y = (qrSize - logoSize) / 2;
+                                ctx.fillStyle = bgColor;
+                                ctx.fillRect(x - 5, y - 5, logoSize + 10, logoSize + 10);
+                                ctx.drawImage(img, x, y, logoSize, logoSize);
                                 resolve();
-                            });
-                        });
-
-                        // 繪製 Logo
-                        if (qrCodeLogoDataUrl) {
-                            const ctx = canvas.getContext('2d');
-                            const img = new Image();
-                            img.src = qrCodeLogoDataUrl;
-                            await new Promise((resolve, reject) => {
-                                img.onload = () => {
-                                    const logoSize = qrSize * logoSizeRatio;
-                                    const x = (qrSize - logoSize) / 2;
-                                    const y = (qrSize - logoSize) / 2;
-                                    ctx.drawImage(img, x, y, logoSize, logoSize);
-                                    resolve();
-                                };
-                                img.onerror = reject;
-                            });
-                        }
-
-                        generatedResults.push({
-                            id: `qr-${i}`,
-                            type: 'qrcode',
-                            original: content,
-                            dataUrl: canvas.toDataURL('image/png')
-                        });
-                    } catch (error) {
-                        console.error('生成 QR Code 失敗:', error);
-                        generatedResults.push({
-                            id: `qr-${i}`,
-                            type: 'qrcode',
-                            original: content,
-                            error: '生成失敗'
+                            };
+                            img.onerror = reject;
                         });
                     }
-                }
-            } else { // shorturl
-                for (let i = 0; i < lines.length; i++) {
-                    const content = lines[i];
-                    try {
-                        const shortUrl = await generateShortUrl(content);
-                        generatedResults.push({
-                            id: `short-${i}`,
-                            type: 'shorturl',
-                            original: content,
-                            shortUrl: shortUrl
-                        });
-                    } catch (error) {
-                        console.error('生成短網址失敗:', error);
-                        generatedResults.push({
-                            id: `short-${i}`,
-                            type: 'shorturl',
-                            original: content,
-                            error: '生成失敗'
-                        });
-                    }
+
+                    generatedResults.push({
+                        id: `qr-${i}`,
+                        original: content,
+                        dataUrl: canvas.toDataURL('image/png')
+                    });
+                } catch (error) {
+                    console.error('生成 QR Code 失敗:', error);
+                    generatedResults.push({
+                        id: `qr-${i}`,
+                        original: content,
+                        error: '生成失敗'
+                    });
                 }
             }
 
@@ -446,107 +303,30 @@
             setLoadingState(false);
         }
 
-        // 模擬短網址生成 (使用 Gemini API)
-        async function generateShortUrl(longUrl) {
-            try {
-                const chatHistory = [];
-                chatHistory.push({
-                    role: "user",
-                    parts: [{ text: `請為以下長網址生成一個簡短且合理的短網址，不包含任何解釋，只提供短網址本身。例如：對於 'https://www.google.com/search?q=example', 請提供類似 'https://tinyurl.com/example' 的格式。現在請為 '${longUrl}' 生成短網址。` }]
-                });
-                const payload = {
-                    contents: chatHistory,
-                    generationConfig: {
-                        responseMimeType: "application/json",
-                        responseSchema: {
-                            type: "OBJECT",
-                            properties: {
-                                "shortUrl": { "type": "STRING" }
-                            },
-                            "propertyOrdering": ["shortUrl"]
-                        }
-                    }
-                };
-                const apiKey = ""; // Canvas 環境會自動提供 API Key
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
-
-                const response = await fetch(apiUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-
-                const result = await response.json();
-                if (result.candidates && result.candidates.length > 0 &&
-                    result.candidates[0].content && result.candidates[0].content.parts &&
-                    result.candidates[0].content.parts.length > 0) {
-                    const jsonText = result.candidates[0].content.parts[0].text;
-                    const parsedJson = JSON.parse(jsonText);
-                    return parsedJson.shortUrl;
-                } else {
-                    console.error("Gemini API 回應結構不符預期:", result);
-                    return `錯誤: 無法生成短網址 (${longUrl})`;
-                }
-            } catch (error) {
-                console.error("生成短網址時發生錯誤:", error);
-                return `錯誤: 無法生成短網址 (${longUrl})`;
-            }
-        }
-
         // --- 結果顯示與下載 ---
-
         function displayResults() {
             resultsContainer.classList.remove('hidden');
             qrCodeGrid.innerHTML = '';
-            shortUrlList.innerHTML = '';
 
-            if (currentGenerationType === 'qrcode') {
-                qrCodeResultsDiv.classList.remove('hidden');
-                shortUrlResultsDiv.classList.add('hidden');
-
-                generatedResults.forEach((item) => {
-                    const div = document.createElement('div');
-                    div.className = 'bg-white p-4 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center';
-                    if (item.error) {
-                        div.innerHTML = `<p class="text-red-500">${item.error}</p>`;
-                    } else {
-                        div.innerHTML = `
-                            <img src="${item.dataUrl}" alt="QR Code for ${item.original}" class="w-32 h-32 mb-3 border border-gray-200 rounded-lg">
-                            <p class="text-sm text-gray-600 break-all">${item.original}</p>
-                            <a href="${item.dataUrl}" download="qrcode_${item.id}.png" class="mt-3 px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out">
-                                下載此 QR Code
-                            </a>
-                        `;
-                    }
-                    qrCodeGrid.appendChild(div);
-                });
-            } else { // shorturl
-                qrCodeResultsDiv.classList.add('hidden');
-                shortUrlResultsDiv.classList.remove('hidden');
-
-                generatedResults.forEach((item) => {
-                    const div = document.createElement('div');
-                    div.className = 'bg-white p-4 rounded-xl shadow-md border border-gray-100';
-                    if (item.error) {
-                        div.innerHTML = `
-                            <p class="text-gray-600 text-sm mb-1">
-                                <span class="font-semibold">原始網址:</span> <span class="break-all">${item.original}</span>
-                            </p>
-                            <p class="text-red-500 font-semibold">${item.error}</p>
-                        `;
-                    } else {
-                        div.innerHTML = `
-                            <p class="text-gray-600 text-sm mb-1">
-                                <span class="font-semibold">原始網址:</span> <span class="break-all">${item.original}</span>
-                            </p>
-                            <p class="text-indigo-700 font-bold text-lg">
-                                <span class="font-semibold text-gray-600">短網址:</span> <a href="${item.shortUrl}" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline break-all">${item.shortUrl}</a>
-                            </p>
-                        `;
-                    }
-                    shortUrlList.appendChild(div);
-                });
-            }
+            generatedResults.forEach((item) => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-xl shadow-md border border-gray-100 flex flex-col items-center text-center';
+                if (item.error) {
+                    div.innerHTML = `
+                        <p class="text-sm text-gray-600 break-all mb-2">${item.original}</p>
+                        <p class="text-red-500 font-semibold">${item.error}</p>`;
+                } else {
+                    const safeFilename = item.original.replace(/[^a-z0-9]/gi, '_').substring(0, 30);
+                    div.innerHTML = `
+                        <img src="${item.dataUrl}" alt="QR Code for ${item.original}" class="w-40 h-40 mb-3 border border-gray-200 rounded-lg">
+                        <p class="text-xs text-gray-500 break-all mb-3">${item.original}</p>
+                        <a href="${item.dataUrl}" download="qrcode_${safeFilename}.png" class="mt-auto px-4 py-2 bg-blue-500 text-white text-sm rounded-lg hover:bg-blue-600 transition duration-200 ease-in-out">
+                            下載
+                        </a>
+                    `;
+                }
+                qrCodeGrid.appendChild(div);
+            });
         }
 
         async function downloadQrCodesAsZip() {
@@ -556,7 +336,7 @@
                 return;
             }
             const zip = new window.JSZip();
-            const qrCodeResults = generatedResults.filter(r => r.type === 'qrcode' && r.dataUrl);
+            const qrCodeResults = generatedResults.filter(r => r.dataUrl);
 
             if (qrCodeResults.length === 0) {
                 errorMessageDiv.textContent = '沒有可下載的 QR Code 圖片。';
@@ -566,7 +346,8 @@
 
             qrCodeResults.forEach((item, index) => {
                 const base64Data = item.dataUrl.split(',')[1];
-                zip.file(`qrcode_${index + 1}.png`, base64Data, { base64: true });
+                const safeFilename = item.original.replace(/[^a-z0-9]/gi, '_').substring(0, 30);
+                zip.file(`qrcode_${index + 1}_${safeFilename}.png`, base64Data, { base64: true });
             });
 
             zip.generateAsync({ type: 'blob' })
@@ -580,47 +361,20 @@
                 });
         }
 
-        function downloadShortUrlsCsv() {
-            if (!window.saveAs) {
-                errorMessageDiv.textContent = 'FileSaver 函式庫未載入。';
-                errorMessageDiv.classList.remove('hidden');
-                return;
-            }
-            const shortUrlResults = generatedResults.filter(r => r.type === 'shorturl' && r.shortUrl);
-
-            if (shortUrlResults.length === 0) {
-                errorMessageDiv.textContent = '沒有可下載的短網址。';
-                errorMessageDiv.classList.remove('hidden');
-                return;
-            }
-
-            let csvContent = "原始網址,短網址\n";
-            shortUrlResults.forEach(item => {
-                csvContent += `"${item.original.replace(/"/g, '""')}","${item.shortUrl.replace(/"/g, '""')}"\n`;
-            });
-
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            window.saveAs(blob, 'short_urls.csv');
-        }
-
         // --- UI 狀態管理 ---
-
         function setLoadingState(isLoading) {
             if (isLoading) {
                 buttonTextSpan.classList.add('hidden');
                 loadingSpinner.classList.remove('hidden');
+                loadingSpinner.classList.add('flex');
                 generateButton.disabled = true;
             } else {
                 buttonTextSpan.classList.remove('hidden');
                 loadingSpinner.classList.add('hidden');
-                generateButton.disabled = !isLibrariesLoaded; // 只有在函式庫載入後才啟用
+                loadingSpinner.classList.remove('flex');
+                generateButton.disabled = !isLibrariesLoaded;
             }
         }
-
-        // 初始化顯示
-        qrCodeSettingsDiv.classList.remove('hidden');
-        shortUrlSettingsDiv.classList.add('hidden');
-
     </script>
 </body>
 </html>
